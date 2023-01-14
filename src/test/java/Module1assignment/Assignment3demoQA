@@ -1,0 +1,97 @@
+
+	import org.testng.annotations.Test;
+	import org.testng.annotations.Test;
+	import org.testng.annotations.Test;
+	import org.testng.annotations.Test;
+	import org.testng.annotations.Test;
+
+import Module1assignment.javscript;
+
+
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+	import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterMethod;
+	import org.testng.annotations.BeforeMethod;
+	import org.testng.annotations.Test;
+
+	import io.github.bonigarcia.wdm.WebDriverManager;
+
+	public class demoqa {
+		WebDriver driver;
+		//private Object executeScript;
+		@BeforeMethod
+		public void browser() {
+			WebDriverManager.edgedriver().setup();
+	driver = new EdgeDriver();
+	  driver.manage().window().maximize();
+	driver.get("https://demoqa.com/");
+	 JavascriptExecutor ex = (JavascriptExecutor) driver;
+	 WebElement forms = driver.findElement(By.xpath("(//div[@class='card mt-4 top-card'])[2]/div/div[@class='card-body']"));
+	//	forms.click();
+	 ex.executeScript("arguments[0].click();", forms);
+  driver.findElement(By.xpath("//span[contains(text(),'Practice Form')]")).click();
+	     
+	 }
+		
+	 @Test
+	 public void testForm() throws InterruptedException {
+		
+	  Thread.sleep(3000);
+	  driver.findElement(By.id("firstName")).sendKeys("Admin");
+	  driver.findElement(By.id("lastName")).sendKeys("mett");
+	  driver.findElement(By.id("userEmail")).sendKeys("Admin207@gmail.com");
+	  driver.findElement(By.xpath("//label[contains(text(),'Male')]")).click();
+	  driver.findElement(By.id("userNumber")).sendKeys("804563214");
+	 }
+	  @Test
+	  public void dateofbrith() {
+	  driver.findElement(By.id("dateOfBirthInput")).clear();
+	  //driver.findElement(By.id("dateOfBirthInput")).sendKeys("12 may 2023");
+	  driver.findElement(By.xpath("//div[contains(text(),'18')]")).click();	
+	  }
+	  
+	  
+	  @Test( enabled = true,groups ="smoke")
+	  public void SubjectChoise() throws InterruptedException {
+	 String subject = "physics"; 
+	// driver.findElement(By.xpath("//input[@id='subjectsInput']")).sendKeys("physics");
+   WebElement ddown =  driver.findElement(By.id("subjectsInput"));
+	 ddown.sendKeys(subject);
+	  Thread.sleep(3000);
+	  ddown.sendKeys(Keys.ENTER);
+	  }
+	  
+	  
+	  @Test
+	   public void HobbiesSelect() {
+	  JavascriptExecutor ex1 = (JavascriptExecutor)driver;
+	WebElement hobbies=  driver.findElement(By.id("hobbies-checkbox-3"));
+	 ex1.executeScript("arguments[0].click();", hobbies);
+	 driver.findElement(By.id("currentAddress")).sendKeys("1st road bengalore");
+	 driver.findElement(By.xpath("//*[@id=\"userForm\"]/div[8]/div[2]/div")).click();
+	  }
+	 
+	  @Test
+	  public void SubmitButton() {
+		 // WebElement buttonSubmit
+			  driver.findElement(By.id("submit")).click();
+			//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonSubmit);
+			//buttonSubmit.click();
+		}
+	
+		
+	 @AfterMethod
+	 public void closeDriver() {
+	  driver.quit();
+	 
+		
+	}}
